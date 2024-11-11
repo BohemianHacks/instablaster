@@ -1,16 +1,39 @@
-import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
-def generate_frame(frame_number):
-    # Create a blank image
-    image = np.zeros((1080, 1920, 3), dtype=np.uint8)
+def f(x, y):
+  """Creates a white image with a black square at specified coordinates.
 
-    # Set background color (adjust as needed)
-    image[:] = (255, 255, 255)  # White background
+  Args:
+      x: Top-left x-coordinate of the black square.
+      y: Top-left y-coordinate of the black square.
 
-    # Add text (adjust font, size, color, and position as needed)
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    text = f"Frame {frame_number}"
-    cv2.putText(image, text, (100, 100), font, 2, (0, 0, 0), 2, cv2.LINE_AA)
+  Returns:
+      A NumPy array representing the image.
+  """
 
-    return image
+  # Image dimensions and data type
+  width, height, channels = 1080, 1920, 3
+  image = np.zeros((width, height, channels), dtype=np.uint8)
+
+  # Set the entire image to white
+  image[:] = (255, 255, 255)
+
+  # Draw a black square
+  square_size = 10
+  image[x:x+square_size, y:y+square_size] = (0, 0, 0)
+
+  return image
+
+# Set the square coordinates (modify these for different positions)
+x_coord = 200
+y_coord = 300
+
+# Generate the image
+image = f(x_coord, y_coord)
+
+# Plot the image
+plt.imshow(image)
+plt.axis('off')  # Hide axes for cleaner visualization
+plt.title("White Image with Black Square")
+plt.show()
